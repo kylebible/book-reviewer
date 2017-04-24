@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .header {
+        padding-left: 50vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/books">Home</a>
+      <a href="/books/add">Add Book and Review</a>
+      <a href="/logout">Log Out</a>
+    </div><br><br>
+    <div class="main-content">
+      <div class="userinfo">
+        <h3>UserName: {{user.username}}</h3><br>
+        <h4>Name: {{user}}</h4><br>
+        <h4>Email: {{user.email}}</h4><br>
+        <h4>Total Reviews: {{user.reviews.count}}</h4><br>
+      </div><br><br>
+      <div class="posted-reviews">
+        <h3>Posted Reviews on the following books:</h3>
+        {% for i in books %}
+        <a href="/books/{{i.id}}">{{i.name}}</a><br>
+        {%endfor%}
+      </div>
+    </div>
+  </body>
+</html>

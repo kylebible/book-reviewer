@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .header {
+        padding-left: 80vw;
+      }
+
+      .title {
+        padding: 10px;
+      }
+
+      .book-column {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .reviews {
+        padding: 20px;
+        margin: 30px;
+      }
+
+      .review {
+        padding: 10px;
+        border-top: 1px solid black;
+      }
+
+      .review-text {
+        margin: 8px;
+      }
+
+      .review-add {
+        display: inline-block;
+        padding-top: 10vw;
+        padding-left: 40px;
+      }
+
+      .review img {
+        height: 20px;
+        width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/books">Home</a>
+      <a href="/logout">Log Out</a>
+    </div>
+    <div class="book-column">
+      <div class="title">
+        <h2>{{book.name}}</h2>
+        <h4>Author: {{book.author}}</h4>
+      </div>
+      <div class="reviews">
+        {% for i in book.reviews.all %}
+          <h2>Reviews</h2>
+          <div class="review">
+            {% with ''|center:i.rating as range %}
+              {% for i in range %}
+                <img src="../../static/images/full_star.png" alt="">
+              {% endfor %}
+            {% endwith %}
+            <div class="review-text">
+              <p><a href="/user/{{i.user.id}}">{{i.user.first_name}}</a> says: {{i.content}}</p>
+            </div>
+            <div class="posted-date">
+              Posted on {{i.created_at}}
+            </div>
+          </div>
+        {%endfor%}
+      </div>
+    </div>
+    <div class="review-add">
+      <h3>Add a review:</h3>
+      <form class="" action="/newreview/{{book.id}}" method="post">
+        {% csrf_token %}
+        <textarea name="review" rows="8" cols="80"></textarea> <br>
+        Rating <input type="number" name="rating" min="0" max="5">
+        <input type="submit" name="" value="Submit!">
+      </form>
+    </div>
+  </body>
+</html>
