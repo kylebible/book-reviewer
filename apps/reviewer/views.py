@@ -110,7 +110,6 @@ def newreview(request, id):
 def userpage(request, id):
     context = {
     'user': User.objects.get(id=id),
-    'books': Book.objects.filter(reviews__user__id=id).distinct(),
-    'reviews': Review.objects.filter(users__id=id).annotate(num_reviews=Count())
+    'books': Book.objects.filter(reviews__user__id=id).distinct()
     }
     return render(request, 'reviewer/users.html', context)
